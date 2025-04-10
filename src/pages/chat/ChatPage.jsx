@@ -269,19 +269,152 @@ const ChatPage = () => {
     'Mobile Development',
     'Data Science',
     'Machine Learning',
+    'Artificial Intelligence',
     'Cloud Computing',
+    'DevOps',
     'Cybersecurity',
-    'Other'
+    'Blockchain',
+    'UI/UX Design',
+    'Game Development',
+    'IoT (Internet of Things)',
+    'Embedded Systems',
+    'Quantum Computing',
+    'AR/VR Development',
+    'Database Administration',
+    'Network Engineering',
+    'Big Data',
+    'Business Intelligence',
+    'ERP Systems',
+    'Robotics',
+    'Bioinformatics',
+    'Digital Marketing',
+    'Product Management',
+    'QA & Testing'
   ];
   
   const industryOptions = [
     'Information Technology',
     'Healthcare',
     'Finance',
+    'Banking',
+    'Insurance',
     'Education',
+    'E-commerce',
     'Manufacturing',
+    'Automotive',
+    'Aerospace',
+    'Telecommunications',
     'Retail',
-    'Other'
+    'Hospitality',
+    'Entertainment',
+    'Media',
+    'Pharmaceuticals',
+    'Biotechnology',
+    'Energy',
+    'Oil & Gas',
+    'Renewable Energy',
+    'Construction',
+    'Real Estate',
+    'Agriculture',
+    'Food & Beverage',
+    'Transportation',
+    'Logistics',
+    'Consulting',
+    'Legal Services',
+    'Government',
+    'Non-profit'
+  ];
+
+  // Job Title options
+  const jobTitleOptions = [
+    'Software Engineer',
+    'Frontend Developer',
+    'Backend Developer',
+    'Full Stack Developer',
+    'DevOps Engineer',
+    'Data Scientist',
+    'Data Analyst',
+    'Machine Learning Engineer',
+    'AI Research Scientist',
+    'Cloud Architect',
+    'Cybersecurity Analyst',
+    'Network Engineer',
+    'Database Administrator',
+    'System Administrator',
+    'UX/UI Designer',
+    'Product Manager',
+    'Project Manager',
+    'Scrum Master',
+    'QA Engineer',
+    'QA Analyst',
+    'Business Analyst',
+    'Technical Writer',
+    'Solutions Architect',
+    'IT Consultant',
+    'Mobile App Developer',
+    'Game Developer',
+    'Blockchain Developer',
+    'IoT Developer',
+    'AR/VR Developer',
+    'Technical Lead',
+    'CTO',
+    'CIO',
+    'IT Director',
+    'VP of Engineering'
+  ];
+
+  // Company Name options
+  const companyNameOptions = [
+    'Google',
+    'Microsoft',
+    'Apple',
+    'Amazon',
+    'Meta (Facebook)',
+    'Netflix',
+    'IBM',
+    'Oracle',
+    'Salesforce',
+    'Adobe',
+    'Intel',
+    'Cisco',
+    'Dell',
+    'HP',
+    'NVIDIA',
+    'AMD',
+    'Twitter',
+    'LinkedIn',
+    'Airbnb',
+    'Uber',
+    'Lyft',
+    'PayPal',
+    'Spotify',
+    'Dropbox',
+    'Stripe',
+    'Slack',
+    'Zoom',
+    'TCS',
+    'Infosys',
+    'Wipro',
+    'HCL Technologies',
+    'Tech Mahindra',
+    'Cognizant',
+    'Accenture',
+    'Capgemini',
+    'Deloitte',
+    'PwC',
+    'EY',
+    'KPMG',
+    'McKinsey',
+    'Boston Consulting Group',
+    'JPMorgan Chase',
+    'Goldman Sachs',
+    'Morgan Stanley',
+    'Bank of America',
+    'Citigroup',
+    'Wells Fargo',
+    'HSBC',
+    'Samsung',
+    'Sony'
   ];
   
   // Get years for the dropdown (current year and past 10 years)
@@ -640,28 +773,34 @@ const ChatPage = () => {
                     
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">Company Name</label>
-                      <input
-                        type="text"
+                      <select
                         name="companyName"
                         value={profileFormData.companyName}
                         onChange={handleProfileFormChange}
-                        placeholder="Enter company name"
                         className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                         required
-                      />
+                      >
+                        <option value="">Select Company</option>
+                        {companyNameOptions.map(company => (
+                          <option key={company} value={company}>{company}</option>
+                        ))}
+                      </select>
                     </div>
                     
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">Job Title</label>
-                      <input
-                        type="text"
+                      <select
                         name="jobTitle"
                         value={profileFormData.jobTitle}
                         onChange={handleProfileFormChange}
-                        placeholder="Enter job title"
                         className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                         required
-                      />
+                      >
+                        <option value="">Select Job Title</option>
+                        {jobTitleOptions.map(title => (
+                          <option key={title} value={title}>{title}</option>
+                        ))}
+                      </select>
                     </div>
                     
                     <div className="md:col-span-2">

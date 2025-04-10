@@ -32,9 +32,119 @@ const StudentDashboard = () => {
     'Mobile Development',
     'Data Science',
     'Machine Learning',
+    'Artificial Intelligence',
     'Cloud Computing',
+    'DevOps',
     'Cybersecurity',
-    'Other'
+    'Blockchain',
+    'UI/UX Design',
+    'Game Development',
+    'IoT (Internet of Things)',
+    'Embedded Systems',
+    'Quantum Computing',
+    'AR/VR Development',
+    'Database Administration',
+    'Network Engineering',
+    'Big Data',
+    'Business Intelligence',
+    'ERP Systems',
+    'Robotics',
+    'Bioinformatics',
+    'Digital Marketing',
+    'Product Management',
+    'QA & Testing'
+  ];
+  
+  // Job Title options
+  const jobTitleOptions = [
+    'Software Engineer',
+    'Frontend Developer',
+    'Backend Developer',
+    'Full Stack Developer',
+    'DevOps Engineer',
+    'Data Scientist',
+    'Data Analyst',
+    'Machine Learning Engineer',
+    'AI Research Scientist',
+    'Cloud Architect',
+    'Cybersecurity Analyst',
+    'Network Engineer',
+    'Database Administrator',
+    'System Administrator',
+    'UX/UI Designer',
+    'Product Manager',
+    'Project Manager',
+    'Scrum Master',
+    'QA Engineer',
+    'QA Analyst',
+    'Business Analyst',
+    'Technical Writer',
+    'Solutions Architect',
+    'IT Consultant',
+    'Mobile App Developer',
+    'Game Developer',
+    'Blockchain Developer',
+    'IoT Developer',
+    'AR/VR Developer',
+    'Technical Lead',
+    'CTO',
+    'CIO',
+    'IT Director',
+    'VP of Engineering'
+  ];
+  
+  // Company Name options
+  const companyNameOptions = [
+    'Google',
+    'Microsoft',
+    'Apple',
+    'Amazon',
+    'Meta (Facebook)',
+    'Netflix',
+    'IBM',
+    'Oracle',
+    'Salesforce',
+    'Adobe',
+    'Intel',
+    'Cisco',
+    'Dell',
+    'HP',
+    'NVIDIA',
+    'AMD',
+    'Twitter',
+    'LinkedIn',
+    'Airbnb',
+    'Uber',
+    'Lyft',
+    'PayPal',
+    'Spotify',
+    'Dropbox',
+    'Stripe',
+    'Slack',
+    'Zoom',
+    'TCS',
+    'Infosys',
+    'Wipro',
+    'HCL Technologies',
+    'Tech Mahindra',
+    'Cognizant',
+    'Accenture',
+    'Capgemini',
+    'Deloitte',
+    'PwC',
+    'EY',
+    'KPMG',
+    'McKinsey',
+    'Boston Consulting Group',
+    'JPMorgan Chase',
+    'Goldman Sachs',
+    'Morgan Stanley',
+    'Bank of America',
+    'Citigroup',
+    'Wells Fargo',
+    'HSBC',
+    'Samsung',
+    'Sony'
   ];
   
   // New form data state for profile update
@@ -572,25 +682,31 @@ const StudentDashboard = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Company</label>
-                  <input
-                    type="text"
+                  <select
                     name="companyName"
                     value={filters.companyName}
                     onChange={handleSearchInputChange}
                     className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                    placeholder="Search by company"
-                  />
+                  >
+                    <option value="">All Companies</option>
+                    {companyNameOptions.map(company => (
+                      <option key={company} value={company}>{company}</option>
+                    ))}
+                  </select>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Job Title</label>
-                  <input
-                    type="text"
+                  <select
                     name="jobTitle"
                     value={filters.jobTitle}
                     onChange={handleSearchInputChange}
                     className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                    placeholder="Search by job title"
-                  />
+                  >
+                    <option value="">All Job Titles</option>
+                    {jobTitleOptions.map(title => (
+                      <option key={title} value={title}>{title}</option>
+                    ))}
+                  </select>
                 </div>
                 <div className="pt-2 flex flex-col space-y-2">
                   <button 
