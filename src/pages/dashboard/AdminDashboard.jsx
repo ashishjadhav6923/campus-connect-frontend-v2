@@ -270,6 +270,7 @@ const AdminDashboard = () => {
                       className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                     >
                       <option value="">Select Year</option>
+                      <option value="2025">2025</option>
                       <option value="2024">2024</option>
                       <option value="2023">2023</option>
                       <option value="2022">2022</option>

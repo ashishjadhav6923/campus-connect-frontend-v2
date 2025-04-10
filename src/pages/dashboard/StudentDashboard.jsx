@@ -156,8 +156,6 @@ const StudentDashboard = () => {
     preferredCompany: '',
     degree: '',
     customDomain: '',
-    customIndustry: '',
-    customPreferredCompany: '',
     customDegree: ''
   });
   
@@ -175,10 +173,43 @@ const StudentDashboard = () => {
     'Information Technology',
     'Healthcare',
     'Finance',
+    'Banking',
+    'Insurance',
     'Education',
+    'E-commerce',
     'Manufacturing',
+    'Automotive',
+    'Aerospace',
+    'Telecommunications',
     'Retail',
-    'Other'
+    'Hospitality',
+    'Entertainment',
+    'Media',
+    'Pharmaceuticals',
+    'Biotechnology',
+    'Energy',
+    'Oil & Gas',
+    'Renewable Energy',
+    'Construction',
+    'Real Estate',
+    'Agriculture',
+    'Food & Beverage',
+    'Transportation',
+    'Logistics',
+    'Consulting',
+    'Legal Services',
+    'Government',
+    'Non-profit',
+    'Fashion',
+    'Gaming',
+    'Sports',
+    'Travel & Tourism',
+    'Environmental Services',
+    'Cybersecurity',
+    'Artificial Intelligence',
+    'Blockchain',
+    'Public Relations',
+    'Advertising'
   ];
   
   const degreeOptions = [
@@ -316,8 +347,8 @@ const StudentDashboard = () => {
         yearOfPassing: profileFormData.yearOfPassing,
         department: profileFormData.department === 'Other' ? profileFormData.customDepartment : profileFormData.department,
         domain: profileFormData.domain === 'Other' ? profileFormData.customDomain : profileFormData.domain,
-        industry: profileFormData.industry === 'Other' ? profileFormData.customIndustry : profileFormData.industry,
-        preferredCompany: profileFormData.preferredCompany === 'Other' ? profileFormData.customPreferredCompany : profileFormData.preferredCompany,
+        industry: profileFormData.industry,
+        preferredCompany: profileFormData.preferredCompany,
         degree: profileFormData.degree === 'Other' ? profileFormData.customDegree : profileFormData.degree
       };
       
@@ -549,31 +580,22 @@ const StudentDashboard = () => {
                           <option key={industry} value={industry}>{industry}</option>
                         ))}
                       </select>
-                      
-                      {profileFormData.industry === 'Other' && (
-                        <input
-                          type="text"
-                          name="customIndustry"
-                          value={profileFormData.customIndustry}
-                          onChange={handleProfileFormChange}
-                          placeholder="Enter your industry"
-                          className="mt-2 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                          required
-                        />
-                      )}
                     </div>
                     
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">Preferred Company</label>
-                      <input
-                        type="text"
+                      <select
                         name="preferredCompany"
                         value={profileFormData.preferredCompany}
                         onChange={handleProfileFormChange}
-                        placeholder="Enter preferred company"
                         className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                         required
-                      />
+                      >
+                        <option value="">Select Preferred Company</option>
+                        {companyNameOptions.map(company => (
+                          <option key={company} value={company}>{company}</option>
+                        ))}
+                      </select>
                     </div>
                     
                     <div>
