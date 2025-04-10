@@ -583,9 +583,8 @@ const ChatPage = () => {
         setSuccess('Profile updated successfully!');
       }
       
-      // Force refresh of user data to get the updated isVerified status
-      // This will reload the component with the chat view
-      window.location.reload();
+      // Redirect to the root path instead of reloading the page
+      window.location.href = '/';
       
     } catch (err) {
       console.error('Profile update error:', err);
