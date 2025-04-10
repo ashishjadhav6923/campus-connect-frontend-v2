@@ -583,8 +583,8 @@ const ChatPage = () => {
         setSuccess('Profile updated successfully!');
       }
       
-      // Redirect to the root path instead of reloading the page
-      window.location.href = '/';
+      // Redirect to the root path using React Router's navigate
+      navigate('/');
       
     } catch (err) {
       console.error('Profile update error:', err);
