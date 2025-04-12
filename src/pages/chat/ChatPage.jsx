@@ -507,9 +507,9 @@ const ChatPage = () => {
       // Perform logout
       await logout();
       
-      // Navigate to sign-up page
+      // Use window.location for a complete page refresh instead of React Router navigation
       toast.success('Successfully logged out');
-      navigate('/signup');
+      window.location.href = '/signup';
     } catch (error) {
       console.error('Logout error:', error);
       toast.error('Failed to logout. Please try again.');
@@ -646,17 +646,20 @@ const ChatPage = () => {
   // Render profile update form if alumni user is not verified
   if (currentUser?.role === 'alumni' && !currentUser.isVerified) {
     return (
-      <div className="min-h-screen bg-gray-50">
-        <nav className="bg-white shadow-sm">
+      <div className="min-h-screen bg-gradient-to-b from-indigo-50 to-white">
+        <nav className="bg-white shadow-md">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between h-16">
               <div className="flex items-center">
-                <h1 className="text-xl font-bold text-indigo-600">Campus Connect</h1>
+                <h1 className="text-xl font-bold text-indigo-600">
+                  <span className="mr-2">🎓</span>
+                  Campus Connect
+                </h1>
               </div>
               <div className="flex items-center">
                 <button
                   onClick={handleLogout}
-                  className="ml-4 px-4 py-2 text-sm text-white bg-indigo-600 rounded-md hover:bg-indigo-700"
+                  className="ml-4 px-5 py-2 text-sm text-white bg-indigo-600 rounded-md hover:bg-indigo-700 transition-colors duration-200 shadow-sm font-medium"
                 >
                   Logout
                 </button>
@@ -665,54 +668,55 @@ const ChatPage = () => {
           </div>
         </nav>
         
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-4 py-12">
           <div className="max-w-3xl mx-auto">
-            <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6" role="alert">
+            <div className="bg-yellow-50 border-l-4 border-yellow-400 p-5 mb-8 rounded-r-lg shadow-sm" role="alert">
               <div className="flex">
-                <div className="flex-shrink-0">
-                  {/* <svg className="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-                  </svg> */}
+                <div className="flex-shrink-0 text-yellow-400 text-xl mr-3">
+                  ⓘ
                 </div>
-                <div className="ml-3">
-                  <p className="text-sm text-yellow-700">
-                    Please complete your profile to access the chat.
+                <div>
+                  <p className="text-sm text-yellow-700 font-medium">
+                    We need a few more details to complete your alumni profile. This information helps students connect with the right mentors.
                   </p>
                 </div>
               </div>
             </div>
             
-            <div className="bg-white rounded-lg shadow-md overflow-hidden">
-              <div className="p-6">
-                <h2 className="text-xl font-semibold mb-4">Complete Your Alumni Profile</h2>
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+              <div className="p-8">
+                <h2 className="text-2xl font-bold text-indigo-800 mb-6 flex items-center">
+                  <span className="mr-3 text-indigo-500">👤</span>
+                  Complete Your Alumni Profile
+                </h2>
                 
                 {error && (
-                  <div className="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                    <span className="block sm:inline">{error}</span>
+                  <div className="mb-6 bg-red-50 border-l-4 border-red-500 text-red-700 p-4 rounded-r-md shadow-sm" role="alert">
+                    <span className="block sm:inline font-medium">{error}</span>
                   </div>
                 )}
                 
                 {success && (
-                  <div className="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
-                    <span className="block sm:inline">{success}</span>
+                  <div className="mb-6 bg-green-50 border-l-4 border-green-500 text-green-700 p-4 rounded-r-md shadow-sm" role="alert">
+                    <span className="block sm:inline font-medium">{success}</span>
                   </div>
                 )}
                 
                 {successMessage && (
-                  <div className="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
-                    <span className="block sm:inline">{successMessage}</span>
+                  <div className="mb-6 bg-green-50 border-l-4 border-green-500 text-green-700 p-4 rounded-r-md shadow-sm" role="alert">
+                    <span className="block sm:inline font-medium">{successMessage}</span>
                   </div>
                 )}
                 
                 <form onSubmit={handleProfileSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Year of Passing</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Year of Passing</label>
                       <select
                         name="yearOfPassing"
                         value={profileFormData.yearOfPassing}
                         onChange={handleProfileFormChange}
-                        className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                        className="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-50"
                         required
                       >
                         <option value="">Select Year</option>
@@ -723,12 +727,12 @@ const ChatPage = () => {
                     </div>
                     
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Years of Experience</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Years of Experience</label>
                       <select
                         name="yearsOfExperience"
                         value={profileFormData.yearsOfExperience}
                         onChange={handleProfileFormChange}
-                        className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                        className="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-50"
                         required
                       >
                         <option value="">Select Years</option>
@@ -739,12 +743,12 @@ const ChatPage = () => {
                     </div>
                     
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Domain</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Domain</label>
                       <select
                         name="domain"
                         value={profileFormData.domain}
                         onChange={handleProfileFormChange}
-                        className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                        className="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-50"
                         required
                       >
                         <option value="">Select Domain</option>
@@ -755,12 +759,12 @@ const ChatPage = () => {
                     </div>
                     
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Industry</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Industry</label>
                       <select
                         name="industry"
                         value={profileFormData.industry}
                         onChange={handleProfileFormChange}
-                        className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                        className="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-50"
                         required
                       >
                         <option value="">Select Industry</option>
@@ -771,12 +775,12 @@ const ChatPage = () => {
                     </div>
                     
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Company Name</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Company Name</label>
                       <select
                         name="companyName"
                         value={profileFormData.companyName}
                         onChange={handleProfileFormChange}
-                        className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                        className="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-50"
                         required
                       >
                         <option value="">Select Company</option>
@@ -787,12 +791,12 @@ const ChatPage = () => {
                     </div>
                     
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Job Title</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Job Title</label>
                       <select
                         name="jobTitle"
                         value={profileFormData.jobTitle}
                         onChange={handleProfileFormChange}
-                        className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                        className="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-50"
                         required
                       >
                         <option value="">Select Job Title</option>
@@ -803,28 +807,45 @@ const ChatPage = () => {
                     </div>
                     
                     <div className="md:col-span-2">
-                      <label className="block text-sm font-medium text-gray-700 mb-1">LinkedIn Profile</label>
-                      <input
-                        type="url"
-                        name="linkedInProfile"
-                        value={profileFormData.linkedInProfile}
-                        onChange={handleProfileFormChange}
-                        placeholder="https://linkedin.com/in/yourprofile"
-                        className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                        required
-                      />
+                      <label className="block text-sm font-medium text-gray-700 mb-2">LinkedIn Profile</label>
+                      <div className="flex rounded-lg shadow-sm">
+                        <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                          </svg>
+                        </span>
+                        <input
+                          type="url"
+                          name="linkedInProfile"
+                          value={profileFormData.linkedInProfile}
+                          onChange={handleProfileFormChange}
+                          placeholder="https://linkedin.com/in/yourprofile"
+                          className="flex-1 rounded-r-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 bg-gray-50"
+                          required
+                        />
+                      </div>
                     </div>
                   </div>
                   
-                  <div>
+                  <div className="pt-4">
                     <button
                       type="submit"
                       disabled={formLoading}
-                      className={`w-full md:w-auto px-6 py-2 bg-indigo-600 text-white font-medium rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${
+                      className={`w-full md:w-auto px-8 py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 shadow-md transition-colors duration-200 ${
                         formLoading ? 'opacity-70 cursor-not-allowed' : ''
                       }`}
                     >
-                      {formLoading ? 'Updating...' : 'Update Profile'}
+                      {formLoading ? (
+                        <span className="flex items-center justify-center">
+                          <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          Updating Profile...
+                        </span>
+                      ) : (
+                        'Update Profile'
+                      )}
                     </button>
                   </div>
                 </form>
@@ -838,20 +859,23 @@ const ChatPage = () => {
 
   // Render the chat page for verified users
   return (
-    <div className="flex flex-col h-screen bg-gray-100">
-      <nav className="bg-white shadow-sm">
+    <div className="flex flex-col h-screen bg-gray-50">
+      <nav className="bg-white shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
-              <h1 className="text-xl font-bold text-indigo-600">Campus Connect</h1>
+              <h1 className="text-xl font-bold text-indigo-600">
+                <span className="mr-2">💬</span>
+                Campus Connect
+              </h1>
               {/* Show socket connection status */}
-              <div className="ml-4 flex items-center">
-                <div className={`h-3 w-3 rounded-full mr-1 ${
+              <div className="ml-4 flex items-center bg-gray-50 rounded-full px-3 py-1 shadow-inner">
+                <div className={`h-3 w-3 rounded-full mr-2 ${
                   socketConnected 
                     ? 'bg-green-500 animate-pulse' 
                     : 'bg-red-500'
                 }`}></div>
-                <span className="text-xs text-gray-500">
+                <span className="text-xs font-medium text-gray-600">
                   {socketConnected 
                     ? 'Connected' 
                     : reconnectAttempts > 0 
@@ -862,7 +886,7 @@ const ChatPage = () => {
                 {!socketConnected && (
                   <button 
                     onClick={reconnectSocket}
-                    className="ml-2 text-xs text-indigo-600 hover:text-indigo-800 underline"
+                    className="ml-2 text-xs text-indigo-600 hover:text-indigo-800 underline font-semibold"
                   >
                     Connect
                   </button>
@@ -870,12 +894,23 @@ const ChatPage = () => {
               </div>
             </div>
             <div className="flex items-center space-x-4">
-              <Link 
-                to="/student-dashboard" 
-                className="px-4 py-2 text-sm text-indigo-600 border border-indigo-600 rounded-md hover:bg-indigo-50"
-              >
-                Dashboard
-              </Link>
+              {currentUser?.role === 'student' && (
+                <Link 
+                  to="/student-dashboard" 
+                  className="px-4 py-2 text-sm text-indigo-600 border border-indigo-600 rounded-md hover:bg-indigo-50 transition-colors duration-200 font-medium"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    // Clean up socket connection before navigation
+                    if (socket) {
+                      socket.disconnect();
+                    }
+                    // Use window.location for a complete page refresh
+                    window.location.href = '/student-dashboard';
+                  }}
+                >
+                  Dashboard
+                </Link>
+              )}
               <ProfileButton />
             </div>
           </div>
@@ -885,25 +920,25 @@ const ChatPage = () => {
       {/* Display success message from AuthContext if any */}
       {successMessage && (
         <div className="mx-auto px-4 py-2 max-w-7xl">
-          <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
-            <span className="block sm:inline">{successMessage}</span>
+          <div className="bg-green-100 border-l-4 border-green-500 text-green-700 px-4 py-3 rounded-md shadow-sm" role="alert">
+            <span className="block sm:inline font-medium">{successMessage}</span>
           </div>
         </div>
       )}
       
       {/* Add reconnection button if socket is disconnected */}
       {!socketConnected && (
-        <div className="bg-yellow-50 border-l-4 border-yellow-400 p-2 mx-4 my-2">
+        <div className="bg-yellow-50 border-l-4 border-yellow-400 p-3 mx-4 my-3 rounded-r-md shadow-sm">
           <div className="flex items-center">
             <div className="flex-shrink-0">
-              <span className="text-yellow-400">⚠️</span>
+              <span className="text-yellow-400 text-lg">⚠️</span>
             </div>
             <div className="ml-3">
-              <p className="text-sm text-yellow-700">
+              <p className="text-sm text-yellow-700 font-medium">
                 Chat connection lost. 
                 <button 
                   onClick={reconnectSocket}
-                  className="ml-2 text-yellow-700 underline"
+                  className="ml-2 text-yellow-700 underline hover:text-yellow-800"
                 >
                   Reconnect
                 </button>
@@ -913,24 +948,25 @@ const ChatPage = () => {
         </div>
       )}
       
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1 overflow-hidden shadow-lg mx-4 my-3 rounded-lg">
         {/* Chats sidebar */}
         <div className="w-full md:w-1/3 lg:w-1/4 bg-white border-r border-gray-200 flex flex-col">
-          <div className="p-4 border-b border-gray-200">
-            <h2 className="text-xl font-semibold">Messages</h2>
+          <div className="p-4 border-b border-gray-200 bg-indigo-50">
+            <h2 className="text-xl font-semibold text-indigo-800">Conversations</h2>
           </div>
           
           {chatsLoading ? (
             <div className="flex justify-center items-center h-full">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+              <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-indigo-600"></div>
             </div>
           ) : chatsError ? (
-            <div className="flex justify-center items-center h-full">
-              <p className="text-red-500">{chatsError}</p>
+            <div className="flex justify-center items-center h-full p-4">
+              <p className="text-red-500 bg-red-50 px-4 py-2 rounded-md">{chatsError}</p>
             </div>
           ) : chats.length === 0 ? (
-            <div className="flex justify-center items-center h-full text-gray-500">
-              <p>No conversations yet</p>
+            <div className="flex flex-col justify-center items-center h-full text-gray-500 p-6">
+              <span className="text-5xl mb-3">💬</span>
+              <p className="text-center">No conversations yet. Start connecting with alumni!</p>
             </div>
           ) : (
             <div className="overflow-y-auto flex-1">
@@ -939,26 +975,26 @@ const ChatPage = () => {
                 return (
                   <div 
                     key={chat._id}
-                    className={`flex items-center p-3 border-b border-gray-100 cursor-pointer hover:bg-gray-50 ${
-                      selectedChat?._id === chat._id ? 'bg-indigo-50' : ''
+                    className={`flex items-center p-4 border-b border-gray-100 cursor-pointer hover:bg-indigo-50 transition-colors duration-150 ${
+                      selectedChat?._id === chat._id ? 'bg-indigo-100 border-l-4 border-indigo-500' : ''
                     }`}
                     onClick={() => handleChatSelect(chat)}
                   >
-                    <div className="relative w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center overflow-hidden">
+                    <div className="relative w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center overflow-hidden shadow-md">
                       {getAvatar(otherUser)}
                     </div>
                     <div className="ml-4 flex-1">
                       <div className="flex justify-between items-center">
-                        <h3 className="font-medium">{otherUser?.name || 'User'}</h3>
+                        <h3 className="font-medium text-gray-900">{otherUser?.name || 'User'}</h3>
                         {/* Timestamp of last message */}
                         {chat.lastMessage && (
-                          <span className="text-xs text-gray-500">
+                          <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
                             {formatTime(chat.lastMessage.createdAt || chat.updatedAt)}
                           </span>
                         )}
                       </div>
                       {/* Preview of last message */}
-                      <p className="text-sm text-gray-500 truncate">
+                      <p className="text-sm text-gray-600 truncate mt-1">
                         {chat.lastMessage ? chat.lastMessage.content : 'No messages yet'}
                       </p>
                     </div>
@@ -972,37 +1008,41 @@ const ChatPage = () => {
         {/* Chat area */}
         <div className="hidden md:flex flex-col flex-1">
           {!selectedChat ? (
-            <div className="flex justify-center items-center h-full bg-gray-50 text-gray-500">
-              <p>Select a conversation to start chatting</p>
+            <div className="flex flex-col justify-center items-center h-full bg-gray-50 text-gray-500">
+              <div className="text-6xl mb-4">👋</div>
+              <p className="text-xl font-medium text-gray-600">Select a conversation to start chatting</p>
+              <p className="mt-2 text-gray-500">Connect with alumni and start building your network</p>
             </div>
           ) : (
             <>
               {/* Chat header */}
-              <div className="flex items-center p-3 border-b border-gray-200 bg-white">
-                <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center overflow-hidden">
+              <div className="flex items-center p-4 border-b border-gray-200 bg-white shadow-sm">
+                <div className="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center overflow-hidden shadow-md">
                   {getAvatar(getOtherUser(selectedChat))}
                 </div>
-                <div className="ml-3">
-                  <h3 className="font-medium">{getOtherUser(selectedChat)?.name || 'User'}</h3>
-                  <p className="text-sm text-gray-500">
+                <div className="ml-4">
+                  <h3 className="font-medium text-lg">{getOtherUser(selectedChat)?.name || 'User'}</h3>
+                  <p className="text-sm text-indigo-600 font-medium">
                     {currentUser?.role === 'student' ? 'Alumni' : 'Student'}
                   </p>
                 </div>
               </div>
               
               {/* Messages */}
-              <div className="flex-1 p-4 overflow-y-auto bg-gray-50">
+              <div className="flex-1 p-6 overflow-y-auto bg-gray-50 bg-gradient-to-b from-indigo-50/30 to-gray-50/60">
                 {messagesLoading ? (
                   <div className="flex justify-center items-center h-full">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+                    <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-indigo-600"></div>
                   </div>
                 ) : messagesError ? (
                   <div className="flex justify-center items-center py-4">
-                    <p className="text-red-500">{messagesError}</p>
+                    <p className="text-red-500 bg-red-50 px-4 py-2 rounded-md shadow-sm">{messagesError}</p>
                   </div>
                 ) : messages.length === 0 ? (
-                  <div className="flex justify-center items-center h-full text-gray-500">
-                    <p>No messages yet. Start the conversation!</p>
+                  <div className="flex flex-col justify-center items-center h-full text-gray-500">
+                    <div className="text-6xl mb-4">💬</div>
+                    <p className="text-xl font-medium text-gray-600">No messages yet</p>
+                    <p className="mt-2 text-gray-500">Start the conversation now!</p>
                   </div>
                 ) : (
                   <div className="space-y-4">
@@ -1016,15 +1056,15 @@ const ChatPage = () => {
                           className={`flex ${isCurrentUserMessage(message) ? 'justify-end' : 'justify-start'}`}
                         >
                           <div 
-                            className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
+                            className={`max-w-xs lg:max-w-md px-5 py-3 rounded-2xl shadow-sm ${
                               isCurrentUserMessage(message) 
                                 ? 'bg-indigo-600 text-white' 
-                                : 'bg-white border border-gray-200'
+                                : 'bg-white border border-gray-100'
                             }`}
                           >
-                            <p>{message.content}</p>
-                            <p className={`text-xs mt-1 text-right ${
-                              isCurrentUserMessage(message) ? 'text-indigo-200' : 'text-gray-500'
+                            <p className="leading-relaxed">{message.content}</p>
+                            <p className={`text-xs mt-2 text-right ${
+                              isCurrentUserMessage(message) ? 'text-indigo-200' : 'text-gray-400'
                             }`}>
                               {formatTime(message.createdAt || message.timestamp)}
                             </p>
@@ -1040,27 +1080,31 @@ const ChatPage = () => {
               {/* Message input */}
               <form 
                 onSubmit={handleSendMessage} 
-                className="mt-auto border-t border-gray-200 p-4 flex items-center"
+                className="mt-auto border-t border-gray-200 p-4 bg-white flex items-center"
               >
                 <input
                   type="text"
                   value={newMessage}
                   onChange={(e) => setNewMessage(e.target.value)}
                   placeholder={socketConnected ? "Type a message..." : "Connecting..."}
-                  className="flex-1 p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="flex-1 p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
                   disabled={sendingMessage || !socketConnected}
                 />
                 <button
                   type="submit"
-                  className={`ml-2 p-2 rounded-md flex items-center justify-center ${
-                    socketConnected ? 'bg-blue-500 text-white hover:bg-blue-600' : 'bg-gray-400 text-gray-200'
-                  } transition duration-150`}
+                  className={`ml-3 p-3 rounded-full flex items-center justify-center shadow-sm ${
+                    socketConnected && newMessage.trim() 
+                      ? 'bg-indigo-600 text-white hover:bg-indigo-700' 
+                      : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                  } transition duration-150 w-12 h-12`}
                   disabled={!newMessage.trim() || sendingMessage || !socketConnected}
                 >
                   {sendingMessage ? (
                     <span className="h-5 w-5 border-t-2 border-white rounded-full animate-spin"></span>
                   ) : (
-                    <span>Send</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                      <path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
+                    </svg>
                   )}
                 </button>
               </form>
